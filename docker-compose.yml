@@ -1,0 +1,52 @@
+version: "2"
+
+services:
+  stream-source:
+    image: maxfuchs/stream-source
+    container_name: stream-source
+    command: python3 app.py
+    mem_limit: 439025664 #0.4*node
+    ports:
+      - "6000:6000"
+    networks:
+      - stream-net
+  stream-crop:
+    image: maxfuchs/stream-crop
+    container_name: stream-crop
+    command: python3 app.py
+    mem_limit: 603660288 #0.55*node
+    ports:
+      - "6001:6001"
+    networks:
+      - stream-net
+  stream-sepia:
+    image: maxfuchs/stream-sepia
+    container_name: stream-sepia
+    command: python3 app.py
+    mem_limit: 603660288 #0.55*node
+    ports:
+      - "6002:6002"
+    networks:
+      - stream-net
+  stream-smoothen:
+    image: maxfuchs/stream-smoothen
+    container_name: stream-smoothen
+    command: python3 app.py
+    mem_limit: 987807744 #0.9*node
+    ports:
+      - "6003:6003"
+    networks:
+      - stream-net
+  stream-sink:
+    image: maxfuchs/stream-sink
+    container_name: stream-sink
+    command: python3 app.py
+    mem_limit: 439025664 #0.4*node
+    ports:
+      - "6004:6004"
+    networks:
+      - stream-net
+
+
+networks:
+  stream-net:
